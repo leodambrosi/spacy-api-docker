@@ -35,7 +35,7 @@ class Spacy(Resource):
             return validation, 500
 
         ret = {
-            'version': '1.2.0',
+            'version': '1.8.1',
             'lang': language
         }
 

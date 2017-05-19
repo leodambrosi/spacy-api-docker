@@ -5,13 +5,9 @@ Supports the English and German language models and returns the analysis structu
 
 Please note that currently the dependency trees and word vectors are not being returned.
 
-## New in version 0.2
-- Updated to spaCy 1.2.0
-- Support for batch processing of multiple texts
-- Certain token data can now be enabled/disabled
-- Added Makefile to easily run the API outside of Docker
-- To save space and increase start-up time, we do not download the word vectors
-- API port can be changed via a environmental variable ('PORT')
+## New in version 0.3
+- Updated to spaCy 1.8.0
+- Default english language
 
 ## Usage
 
@@ -61,211 +57,167 @@ fields| Optional. A list of token data fields that should be analyzed. Example: 
 Either 'text' or 'texts' is required.
 
 ## Installation
-### Docker
+### Docker build
 ```
-docker pull jgontrum/spacyapi:en
-or
-docker pull jgontrum/spacyapi:de
-```
-### Local
-```
-make english
-or
-make german
+sudo docker build -t spacy-en .
 ```
 
-## Run
+## Docker Run
 ### Docker
 ```
-docker run --name spacyapi -d -p 127.0.0.1:5000:5000 jgontrum/spacyapi:en
-```
-### Local
-```
-make run-en
-or
-make run-de
+sudo docker run --name spacy-en -d --net=host spacy-en
 ```
 
 ## Example
 ### Simple
 #### Request
 ```
-curl http://localhost:5000/api --header 'content-type: application/json' --data '{"text": "Das hier ist Peter. Peter ist eine Person."}' -X POST
+curl http://localhost:5000/api --header 'content-type: application/json' --data '{"text": "Angela Merkel loves spending holiday in Italy."}' -X POST
 ```
 
 #### Response
 ```
-{
-  "performance": 0.0042879581451416016,
-  "version": "1.2.0",
-  "numOfSentences": 2,
-  "numOfTokens": 10,
-  "sentences": [
-    [
-      {
-        "offsets": {
-          "begin": 0,
-          "end": 3
-        },
-        "oov": false,
-        "stop": false,
-        "pos": "PRON",
-        "tag": "PDS",
-        "url": false,
-        "lemma": "das",
-        "token": "Das",
-        "num": false,
-        "ner": "",
-        "email": false
-      },
-      {
-        "offsets": {
-          "begin": 4,
-          "end": 8
-        },
-        "oov": false,
-        "stop": false,
-        "pos": "ADV",
-        "tag": "ADV",
-        "url": false,
-        "lemma": "hier",
-        "token": "hier",
-        "num": false,
-        "ner": "",
-        "email": false
-      },
-      {
-        "offsets": {
-          "begin": 9,
-          "end": 12
-        },
-        "oov": false,
-        "stop": false,
-        "pos": "AUX",
-        "tag": "VAFIN",
-        "url": false,
-        "lemma": "ist",
-        "token": "ist",
-        "num": false,
-        "ner": "",
-        "email": false
-      },
-      {
-        "offsets": {
-          "begin": 13,
-          "end": 18
-        },
-        "oov": false,
-        "stop": false,
-        "pos": "PROPN",
-        "tag": "NE",
-        "url": false,
-        "lemma": "peter",
-        "token": "Peter",
-        "num": false,
-        "ner": "PERSON",
-        "email": false
-      },
-      {
-        "offsets": {
-          "begin": 18,
-          "end": 19
-        },
-        "oov": false,
-        "stop": false,
-        "pos": "PUNCT",
-        "tag": "$.",
-        "url": false,
-        "lemma": ".",
-        "token": ".",
-        "num": false,
-        "ner": "",
-        "email": false
-      }
-    ],
-    [
-      {
-        "offsets": {
-          "begin": 20,
-          "end": 25
-        },
-        "oov": false,
-        "stop": false,
-        "pos": "PROPN",
-        "tag": "NE",
-        "url": false,
-        "lemma": "peter",
-        "token": "Peter",
-        "num": false,
-        "ner": "PERSON",
-        "email": false
-      },
-      {
-        "offsets": {
-          "begin": 26,
-          "end": 29
-        },
-        "oov": false,
-        "stop": false,
-        "pos": "AUX",
-        "tag": "VAFIN",
-        "url": false,
-        "lemma": "ist",
-        "token": "ist",
-        "num": false,
-        "ner": "",
-        "email": false
-      },
-      {
-        "offsets": {
-          "begin": 30,
-          "end": 34
-        },
-        "oov": false,
-        "stop": false,
-        "pos": "DET",
-        "tag": "ART",
-        "url": false,
-        "lemma": "eine",
-        "token": "eine",
-        "num": false,
-        "ner": "",
-        "email": false
-      },
-      {
-        "offsets": {
-          "begin": 35,
-          "end": 41
-        },
-        "oov": false,
-        "stop": false,
-        "pos": "NOUN",
-        "tag": "NN",
-        "url": false,
-        "lemma": "Person",
-        "token": "Person",
-        "num": false,
-        "ner": "",
-        "email": false
-      },
-      {
-        "offsets": {
-          "begin": 41,
-          "end": 42
-        },
-        "oov": false,
-        "stop": false,
-        "pos": "PUNCT",
-        "tag": "$.",
-        "url": false,
-        "lemma": ".",
-        "token": ".",
-        "num": false,
-        "ner": "",
-        "email": false
-      }
-    ]
-  ]
+{  
+   "sentences":[  
+      [  
+         {  
+            "offsets":{  
+               "end":6,
+               "begin":0
+            },
+            "token":"Angela",
+            "stop":false,
+            "email":false,
+            "oov":false,
+            "url":false,
+            "tag":"NNP",
+            "pos":"PROPN",
+            "ner":"PERSON",
+            "lemma":"angela",
+            "num":false
+         },
+         {  
+            "offsets":{  
+               "end":13,
+               "begin":7
+            },
+            "token":"Merkel",
+            "stop":false,
+            "email":false,
+            "oov":false,
+            "url":false,
+            "tag":"NNP",
+            "pos":"PROPN",
+            "ner":"PERSON",
+            "lemma":"merkel",
+            "num":false
+         },
+         {  
+            "offsets":{  
+               "end":19,
+               "begin":14
+            },
+            "token":"loves",
+            "stop":false,
+            "email":false,
+            "oov":false,
+            "url":false,
+            "tag":"VBZ",
+            "pos":"VERB",
+            "ner":"",
+            "lemma":"love",
+            "num":false
+         },
+         {  
+            "offsets":{  
+               "end":28,
+               "begin":20
+            },
+            "token":"spending",
+            "stop":false,
+            "email":false,
+            "oov":false,
+            "url":false,
+            "tag":"VBG",
+            "pos":"VERB",
+            "ner":"",
+            "lemma":"spend",
+            "num":false
+         },
+         {  
+            "offsets":{  
+               "end":36,
+               "begin":29
+            },
+            "token":"holiday",
+            "stop":false,
+            "email":false,
+            "oov":false,
+            "url":false,
+            "tag":"NN",
+            "pos":"NOUN",
+            "ner":"",
+            "lemma":"holiday",
+            "num":false
+         },
+         {  
+            "offsets":{  
+               "end":39,
+               "begin":37
+            },
+            "token":"in",
+            "stop":true,
+            "email":false,
+            "oov":false,
+            "url":false,
+            "tag":"IN",
+            "pos":"ADP",
+            "ner":"",
+            "lemma":"in",
+            "num":false
+         },
+         {  
+            "offsets":{  
+               "end":45,
+               "begin":40
+            },
+            "token":"Italy",
+            "stop":false,
+            "email":false,
+            "oov":false,
+            "url":false,
+            "tag":"NNP",
+            "pos":"PROPN",
+            "ner":"GPE",
+            "lemma":"italy",
+            "num":false
+         },
+         {  
+            "offsets":{  
+               "end":46,
+               "begin":45
+            },
+            "token":".",
+            "stop":false,
+            "email":false,
+            "oov":false,
+            "url":false,
+            "tag":".",
+            "pos":"PUNCT",
+            "ner":"",
+            "lemma":".",
+            "num":false
+         }
+      ]
+   ],
+   "performance":[
+      0.002523183822631836
+   ],
+   "numOfTokens":8,
+   "numOfSentences":1,
+   "lang":"en",
+   "error":false,
+   "version":"1.2.0"
 }
 ```
 
