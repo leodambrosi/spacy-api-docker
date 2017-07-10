@@ -9,7 +9,7 @@ from flask_restful import reqparse, Api, Resource
 language = os.environ['LANG'] or 'en'
 
 print("Loading Language Model for '%s'..." % language)
-nlp = spacy.load(language)
+nlp = spacy.load('en_core_web_sm')
 print("Language Model for '%s' loaded!" % language)
 
 app = Flask("spaCy API")

@@ -16,7 +16,7 @@ python-dateutil
 pytz
 semver
 six
-spacy
+spacy-nightly
 sputnik
 thinc
 ujson
